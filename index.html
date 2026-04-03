@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>잘 살기 해카톤 — 청도 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0e0c0a;--cream:#f5f0e8;--warm:#e8ddd0;
+  --terra:#c4622d;--amber:#d4943a;--sage:#7a8c72;
+  --muted:rgba(245,240,232,0.42);--border:rgba(245,240,232,0.09);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:'Noto Sans KR',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
+body.en{font-family:'DM Sans','Noto Sans KR',sans-serif;}
+
+/* LANG TOGGLE */
+.lang-toggle{position:fixed;top:1.4rem;right:1.8rem;z-index:999;display:flex;align-items:center;border:1px solid rgba(245,240,232,0.18);border-radius:100px;overflow:hidden;background:rgba(14,12,10,0.82);backdrop-filter:blur(14px);}
+.lang-btn{padding:0.4rem 1rem;font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,240,232,0.35);border:none;background:transparent;cursor:pointer;transition:all 0.2s;font-family:inherit;}
+.lang-btn.active{background:var(--terra);color:var(--cream);border-radius:100px;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;padding:2.5rem 2.5rem 3rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;}
+.hero-bg::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(ellipse,rgba(196,98,45,0.15) 0%,transparent 65%);}
+.hero-bg::after{content:'';position:absolute;bottom:-150px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(122,140,114,0.1) 0%,transparent 65%);}
+.hero-top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
+.badge-free{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream);background:rgba(196,98,45,0.25);border:1px solid rgba(196,98,45,0.4);padding:0.35rem 0.9rem;border-radius:100px;}
+.badge-date{font-size:0.62rem;letter-spacing:0.1em;color:var(--muted);}
+
+.hero-body{display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;padding:3rem 0;position:relative;z-index:2;}
+.hero-label{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terra);margin-bottom:1.5rem;}
+.hero-title{font-family:'Noto Serif KR',serif;font-size:clamp(2.8rem,7vw,5.8rem);font-weight:300;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.5rem;}
+body.en .hero-title{font-family:'Cormorant Garamond',serif;}
+.hero-title em{font-style:italic;color:var(--terra);}
+.hero-title .accent{display:block;font-weight:600;}
+.hero-sub{font-size:0.92rem;color:rgba(245,240,232,0.6);max-width:440px;line-height:1.85;margin-bottom:2.5rem;border-left:2px solid rgba(196,98,45,0.4);padding-left:1.2rem;}
+.hero-meta{display:flex;gap:1.8rem;flex-wrap:wrap;}
+.meta-item{display:flex;flex-direction:column;gap:0.2rem;}
+.meta-label{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--terra);}
+.meta-value{font-size:0.85rem;font-weight:500;color:var(--cream);}
+
+/* Hero visual — orbital */
+.hero-visual{display:flex;align-items:center;justify-content:center;}
+
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;}
+.cta-btn{display:inline-flex;align-items:center;gap:0.6rem;background:var(--terra);color:var(--cream);padding:0.85rem 2rem;border-radius:100px;font-size:0.85rem;font-weight:500;letter-spacing:0.05em;text-decoration:none;transition:background 0.25s,transform 0.2s;font-family:inherit;}
+.cta-btn:hover{background:#a8501f;transform:translateY(-1px);}
+.hero-scroll{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;}
+
+/* SECTIONS */
+section{padding:6rem 2.5rem;border-top:1px solid var(--border);}
+.section-label{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--terra);margin-bottom:1rem;display:block;}
+.section-title{font-family:'Noto Serif KR',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;line-height:1.2;margin-bottom:3rem;max-width:600px;}
+body.en .section-title{font-family:'Cormorant Garamond',serif;}
+.section-title em{font-style:italic;color:var(--terra);}
+
+/* ABOUT — visual layout */
+.about-section{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.about-left{}
+.about-text{font-size:0.9rem;color:rgba(245,240,232,0.62);line-height:1.9;}
+.about-text p+p{margin-top:1rem;}
+
+/* Three pillars visual */
+.pillars{display:flex;flex-direction:column;gap:1.2rem;margin-top:0;}
+.pillar-item{display:flex;align-items:center;gap:1.2rem;padding:1.2rem 1.5rem;border:1px solid var(--border);border-radius:4px;transition:border-color 0.3s;}
+.pillar-item:hover{border-color:rgba(196,98,45,0.3);}
+.pillar-icon{flex-shrink:0;width:44px;height:44px;}
+.pillar-text-group{}
+.pillar-label{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--terra);margin-bottom:0.2rem;}
+.pillar-title{font-family:'Noto Serif KR',serif;font-size:1rem;font-weight:400;}
+body.en .pillar-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;}
+.pillar-desc{font-size:0.75rem;color:var(--muted);margin-top:0.15rem;line-height:1.6;}
+
+/* Audience */
+.audience-wrap{margin-top:3rem;}
+.audience-row{display:flex;gap:0.7rem;flex-wrap:wrap;margin-top:1rem;}
+.audience-pill{display:flex;align-items:center;gap:0.55rem;border:1px solid var(--border);padding:0.6rem 1.1rem;border-radius:100px;font-size:0.78rem;color:rgba(245,240,232,0.58);transition:border-color 0.3s,color 0.3s;}
+.audience-pill:hover{border-color:rgba(196,98,45,0.4);color:var(--cream);}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--terra);opacity:0.7;flex-shrink:0;}
+
+/* THEMES */
+.themes-section{background:#111009;}
+
+/* Tools — primary layer */
+.tools-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:2rem;}
+.tools-eyebrow{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);}
+
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem;}
+.tool-card{border:1px solid rgba(196,98,45,0.25);background:rgba(196,98,45,0.04);padding:2rem;border-radius:6px;position:relative;overflow:hidden;}
+.tool-card-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;}
+.tool-card-title{font-family:'Noto Serif KR',serif;font-size:1.3rem;font-weight:400;margin-bottom:0.6rem;line-height:1.3;}
+body.en .tool-card-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;}
+.tool-card-desc{font-size:0.78rem;color:rgba(245,240,232,0.5);line-height:1.7;margin-bottom:1.5rem;}
+.tool-visual{width:100%;margin-top:0.5rem;}
+
+/* Thread connector */
+.thread-connector{display:flex;align-items:center;gap:1rem;padding:1.5rem 0;margin:1rem 0;}
+.thread-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(122,140,114,0.3),transparent);}
+.thread-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(122,140,114,0.6);white-space:nowrap;}
+
+/* Transversal themes */
+.transversal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:4px;overflow:hidden;}
+.trans-card{background:#111009;padding:2rem 1.6rem;position:relative;overflow:hidden;transition:background 0.3s;}
+.trans-card:hover{background:#1a1612;}
+.trans-num{font-family:'Noto Serif KR',serif;font-size:3.5rem;font-weight:300;color:rgba(245,240,232,0.03);position:absolute;top:0.8rem;right:1rem;line-height:1;}
+body.en .trans-num{font-family:'Cormorant Garamond',serif;}
+.trans-icon{font-size:1.5rem;margin-bottom:1rem;display:block;line-height:1;}
+.trans-title{font-family:'Noto Serif KR',serif;font-size:0.98rem;font-weight:400;margin-bottom:0.5rem;line-height:1.4;}
+body.en .trans-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;}
+.trans-desc{font-size:0.75rem;color:rgba(245,240,232,0.38);line-height:1.7;}
+
+/* PROGRAM */
+.program-section{background:#09080700;}
+.program-layout{display:grid;grid-template-columns:1fr 340px;gap:5rem;align-items:start;}
+
+.timeline{max-width:100%;position:relative;}
+.timeline::before{content:'';position:absolute;left:0;top:12px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--terra),transparent);}
+.tl-item{display:grid;grid-template-columns:76px 1fr;gap:1.8rem;padding:1.4rem 0 1.4rem 2rem;border-bottom:1px solid rgba(245,240,232,0.05);position:relative;}
+.tl-item::before{content:'';position:absolute;left:-3px;top:1.8rem;width:7px;height:7px;border-radius:50%;background:var(--bg);border:1px solid var(--terra);}
+.tl-item:last-child{border-bottom:none;}
+.tl-time{font-size:0.75rem;font-weight:500;color:var(--terra);padding-top:0.1rem;letter-spacing:0.05em;}
+.tl-title{font-weight:500;font-size:0.9rem;margin-bottom:0.25rem;}
+.tl-desc{font-size:0.76rem;color:var(--muted);line-height:1.65;}
+.tl-tags{display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.45rem;}
+.tl-tag{font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;border-radius:100px;}
+.tl-tag.ai{background:rgba(196,98,45,0.15);color:rgba(196,98,45,0.85);}
+.tl-tag.dt{background:rgba(122,140,114,0.15);color:rgba(122,140,114,0.85);}
+.tl-tag.social{background:rgba(212,148,58,0.12);color:rgba(212,148,58,0.8);}
+
+.program-aside{position:sticky;top:4rem;}
+.aside-title{font-family:'Noto Serif KR',serif;font-size:0.95rem;font-weight:400;margin-bottom:1.5rem;color:rgba(245,240,232,0.6);}
+body.en .aside-title{font-family:'Cormorant Garamond',serif;}
+
+/* COLLABS */
+.collab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem;}
+.collab-card{border:1px solid var(--border);padding:2rem;border-radius:4px;transition:border-color 0.3s;}
+.collab-card:hover{border-color:rgba(196,98,45,0.3);}
+.collab-role{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terra);margin-bottom:0.8rem;}
+.collab-name{font-family:'Noto Serif KR',serif;font-size:1.1rem;font-weight:400;margin-bottom:0.5rem;}
+body.en .collab-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;}
+.collab-desc{font-size:0.74rem;color:var(--muted);line-height:1.75;}
+
+/* REGISTER */
+.register-section{background:var(--cream);color:#0e0c0a;position:relative;overflow:hidden;}
+.register-section .section-label{color:var(--terra);}
+.register-section .section-title{color:#0e0c0a;}
+.register-section .section-title em{color:var(--terra);}
+.register-inner{max-width:540px;}
+.register-note{font-size:0.83rem;color:rgba(14,12,10,0.5);margin-bottom:2.5rem;line-height:1.8;}
+.register-form{display:flex;flex-direction:column;gap:1rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+.form-label{font-size:0.65rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(14,12,10,0.5);}
+.form-input,.form-select{padding:0.72rem 1rem;border:1px solid rgba(14,12,10,0.15);border-radius:4px;font-family:inherit;font-size:0.83rem;background:rgba(14,12,10,0.03);color:#0e0c0a;transition:border-color 0.25s;outline:none;}
+.form-input:focus,.form-select:focus{border-color:var(--terra);}
+.form-submit{display:inline-flex;align-items:center;justify-content:center;gap:0.6rem;background:var(--terra);color:var(--cream);padding:0.9rem 2.5rem;border:none;border-radius:100px;font-size:0.88rem;font-weight:500;font-family:inherit;cursor:pointer;align-self:flex-start;transition:background 0.25s,transform 0.2s;margin-top:0.5rem;}
+.form-submit:hover{background:#a8501f;transform:translateY(-1px);}
+.register-deco{position:absolute;right:-60px;top:50%;transform:translateY(-50%);opacity:0.05;pointer-events:none;}
+
+/* FOOTER */
+footer{padding:2.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-credit{font-size:0.66rem;color:var(--muted);letter-spacing:0.05em;}
+.footer-orgs{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-org{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.28);}
+
+@media(max-width:820px){
+  .hero-body{grid-template-columns:1fr;gap:2rem;}
+  .hero-visual{display:none;}
+  .about-section{grid-template-columns:1fr;gap:3rem;}
+  .tools-grid{grid-template-columns:1fr;}
+  .transversal-grid{grid-template-columns:1fr;}
+  .program-layout{grid-template-columns:1fr;}
+  .program-aside{display:none;}
+  .form-row{grid-template-columns:1fr;}
+  section{padding:4rem 1.5rem;}
+  footer{padding:2rem 1.5rem;}
+  .hero{padding:2rem 1.5rem 2.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- LANG -->
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-ko" onclick="setLang('ko')">한국어</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-top">
+    <span class="badge-free" data-ko="무료 참가 · 선착순" data-en="Free · Limited spots">무료 참가 · 선착순</span>
+    <span class="badge-date">2026. 04. 12 (토 / Sat)</span>
+  </div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-label" data-ko="청도혁신센터 · AI × 디자인씽킹 해카톤" data-en="Cheongdo Innovation Center · AI × Design Thinking Hackathon">청도혁신센터 · AI × 디자인씽킹 해카톤</div>
+      <h1 class="hero-title" id="hero-title"><em>잘 살기</em><span class="accent">해카톤</span></h1>
+      <p class="hero-sub" data-ko="성공은 하나의 모습이 아닙니다.<br>AI와 디자인씽킹으로 나만의 잘 사는 법을<br>함께 설계하는 하루." data-en="Success doesn't look the same for everyone.<br>A day to design your own way of thriving —<br>using AI and Design Thinking, together.">성공은 하나의 모습이 아닙니다.<br>AI와 디자인씽킹으로 나만의 잘 사는 법을<br>함께 설계하는 하루.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><span class="meta-label" data-ko="일시" data-en="Date">일시</span><span class="meta-value" data-ko="4월 12일 (토) 10:00–17:00" data-en="April 12 (Sat) 10:00–17:00">4월 12일 (토) 10:00–17:00</span></div>
+        <div class="meta-item"><span class="meta-label" data-ko="장소" data-en="Location">장소</span><span class="meta-value" data-ko="청도혁신센터" data-en="Cheongdo Innovation Center">청도혁신센터</span></div>
+        <div class="meta-item"><span class="meta-label" data-ko="참가비" data-en="Entry">참가비</span><span class="meta-value" data-ko="무료" data-en="Free">무료</span></div>
+        <div class="meta-item"><span class="meta-label" data-ko="팀" data-en="Format">팀</span><span class="meta-value" data-ko="4개 팀 · 소수 정예" data-en="4 teams · Curated">4개 팀 · 소수 정예</span></div>
+      </div>
+    </div>
+    <!-- Hero orbital visual -->
+    <div class="hero-visual">
+      <svg width="340" height="340" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rings -->
+        <circle cx="170" cy="170" r="155" stroke="rgba(196,98,45,0.08)" stroke-width="1"/>
+        <circle cx="170" cy="170" r="115" stroke="rgba(196,98,45,0.1)" stroke-width="0.8"/>
+        <circle cx="170" cy="170" r="75" stroke="rgba(196,98,45,0.14)" stroke-width="0.8"/>
+        <!-- Center glow -->
+        <circle cx="170" cy="170" r="38" fill="rgba(196,98,45,0.07)" stroke="rgba(196,98,45,0.3)" stroke-width="0.8"/>
+        <text x="170" y="165" text-anchor="middle" font-family="'Noto Serif KR',serif" font-size="11" fill="rgba(245,240,232,0.7)" dy="0">잘</text>
+        <text x="170" y="181" text-anchor="middle" font-family="'Noto Serif KR',serif" font-size="11" fill="rgba(245,240,232,0.7)">살기</text>
+        <!-- Orbit nodes -->
+        <!-- AI node - top -->
+        <circle cx="170" cy="55" r="22" fill="rgba(14,12,10,0.9)" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
+        <text x="170" y="59" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9.5" font-weight="500" fill="rgba(196,98,45,0.9)">AI</text>
+        <!-- Design Thinking node - right -->
+        <circle cx="285" cy="170" r="22" fill="rgba(14,12,10,0.9)" stroke="rgba(122,140,114,0.5)" stroke-width="1"/>
+        <text x="285" y="166" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="rgba(122,140,114,0.9)">Design</text>
+        <text x="285" y="177" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="rgba(122,140,114,0.9)">Thinking</text>
+        <!-- Community node - bottom-left -->
+        <circle cx="90" cy="263" r="18" fill="rgba(14,12,10,0.9)" stroke="rgba(245,240,232,0.15)" stroke-width="0.8"/>
+        <text x="90" y="268" text-anchor="middle" font-family="'Noto Sans KR',sans-serif" font-size="7.5" fill="rgba(245,240,232,0.45)">커뮤니티</text>
+        <!-- Success node - bottom-right -->
+        <circle cx="250" cy="263" r="18" fill="rgba(14,12,10,0.9)" stroke="rgba(245,240,232,0.15)" stroke-width="0.8"/>
+        <text x="250" y="261" text-anchor="middle" font-family="'Noto Sans KR',sans-serif" font-size="7" fill="rgba(245,240,232,0.45)">성공</text>
+        <text x="250" y="271" text-anchor="middle" font-family="'Noto Sans KR',sans-serif" font-size="7" fill="rgba(245,240,232,0.45)">재정의</text>
+        <!-- Work-Life node - left -->
+        <circle cx="55" cy="170" r="18" fill="rgba(14,12,10,0.9)" stroke="rgba(245,240,232,0.15)" stroke-width="0.8"/>
+        <text x="55" y="166" text-anchor="middle" font-family="'Noto Sans KR',sans-serif" font-size="7" fill="rgba(245,240,232,0.45)">일과</text>
+        <text x="55" y="176" text-anchor="middle" font-family="'Noto Sans KR',sans-serif" font-size="7" fill="rgba(245,240,232,0.45)">삶</text>
+        <!-- Connecting lines from center to tool nodes -->
+        <line x1="170" y1="132" x2="170" y2="77" stroke="rgba(196,98,45,0.25)" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="205" y1="170" x2="263" y2="170" stroke="rgba(122,140,114,0.25)" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <!-- Faint connections to transversal nodes -->
+        <line x1="135" y1="195" x2="104" y2="247" stroke="rgba(245,240,232,0.07)" stroke-width="0.6"/>
+        <line x1="205" y1="195" x2="236" y2="247" stroke="rgba(245,240,232,0.07)" stroke-width="0.6"/>
+        <line x1="132" y1="170" x2="73" y2="170" stroke="rgba(245,240,232,0.07)" stroke-width="0.6"/>
+        <!-- Small dots on orbit path -->
+        <circle cx="230" cy="72" r="2.5" fill="rgba(196,98,45,0.3)"/>
+        <circle cx="278" cy="108" r="2" fill="rgba(196,98,45,0.2)"/>
+        <circle cx="62" cy="232" r="2" fill="rgba(245,240,232,0.12)"/>
+        <circle cx="170" cy="285" r="2.5" fill="rgba(212,148,58,0.25)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <a href="#register" class="cta-btn" data-ko="지금 신청하기 →" data-en="Apply now →">지금 신청하기 →</a>
+    <span class="hero-scroll" data-ko="스크롤" data-en="scroll">스크롤</span>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section>
+  <div class="about-section">
+    <div class="about-left">
+      <span class="section-label" data-ko="이 해카톤에 대해" data-en="About this event">이 해카톤에 대해</span>
+      <h2 class="section-title" id="about-title">일하는 것과 잘 사는 것,<br><em>함께라면 가능합니다.</em></h2>
+      <div class="about-text" id="about-body">
+        <p>한국에서 성공이란 무엇일까요? 더 많이 버는 것? 더 빠르게 성장하는 것? 이 해카톤은 그 질문에서 시작합니다.</p>
+        <p>AI와 디자인씽킹이라는 두 가지 도구를 손에 쥐고, 나 자신의 성공을 직접 설계해봅니다. 혼자가 아닌 커뮤니티와 함께.</p>
+        <p>학생이든, 창업자든, 소상공인이든 — 잘 살고 싶다는 마음 하나면 충분합니다.</p>
+      </div>
+      <div class="audience-wrap">
+        <span class="section-label" data-ko="이런 분들과 함께합니다" data-en="Who's joining">이런 분들과 함께합니다</span>
+        <div class="audience-row">
+          <div class="audience-pill"><div class="pill-dot"></div><span data-ko="공립대학교 학생" data-en="University students">공립대학교 학생</span></div>
+          <div class="audience-pill"><div class="pill-dot"></div><span data-ko="몬드라곤 그룹 창업자" data-en="Mondragon entrepreneurs">몬드라곤 그룹 창업자</span></div>
+          <div class="audience-pill"><div class="pill-dot"></div><span data-ko="키키의 동료들" data-en="Kiki's community">키키의 동료들</span></div>
+          <div class="audience-pill"><div class="pill-dot"></div><span data-ko="소상공인 · 자영업자" data-en="Small business owners">소상공인 · 자영업자</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three pillars -->
+    <div class="pillars">
+      <div class="pillar-item">
+        <svg class="pillar-icon" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" stroke="rgba(196,98,45,0.3)" stroke-width="0.8"/>
+          <!-- Book / learning icon -->
+          <rect x="12" y="13" width="14" height="18" rx="1.5" stroke="rgba(196,98,45,0.7)" stroke-width="0.9" fill="none"/>
+          <rect x="18" y="13" width="14" height="18" rx="1.5" stroke="rgba(196,98,45,0.45)" stroke-width="0.9" fill="none"/>
+          <line x1="14" y1="18" x2="24" y2="18" stroke="rgba(196,98,45,0.5)" stroke-width="0.7"/>
+          <line x1="14" y1="21" x2="24" y2="21" stroke="rgba(196,98,45,0.5)" stroke-width="0.7"/>
+          <line x1="14" y1="24" x2="22" y2="24" stroke="rgba(196,98,45,0.5)" stroke-width="0.7"/>
+        </svg>
+        <div class="pillar-text-group">
+          <div class="pillar-label" data-ko="배움" data-en="Learning">배움</div>
+          <div class="pillar-title" data-ko="써먹을 수 있는 것들" data-en="Things you'll actually use">써먹을 수 있는 것들</div>
+          <div class="pillar-desc" data-ko="AI와 방법론, 오늘 배우고 내일 바로 씁니다." data-en="AI and methodology — learn it today, apply it tomorrow.">AI와 방법론, 오늘 배우고 내일 바로 씁니다.</div>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <svg class="pillar-icon" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" stroke="rgba(122,140,114,0.3)" stroke-width="0.8"/>
+          <!-- People / connection icon -->
+          <circle cx="16" cy="19" r="4" stroke="rgba(122,140,114,0.7)" stroke-width="0.9" fill="none"/>
+          <circle cx="28" cy="19" r="4" stroke="rgba(122,140,114,0.7)" stroke-width="0.9" fill="none"/>
+          <path d="M10 30 C10 25 13 23 16 23 C19 23 20 24 22 24 C24 24 25 23 28 23 C31 23 34 25 34 30" stroke="rgba(122,140,114,0.6)" stroke-width="0.9" fill="none"/>
+        </svg>
+        <div class="pillar-text-group">
+          <div class="pillar-label" data-ko="연결" data-en="Connection">연결</div>
+          <div class="pillar-title" data-ko="진짜 사람, 진짜 관계" data-en="Real people, real connections">진짜 사람, 진짜 관계</div>
+          <div class="pillar-desc" data-ko="해카톤이 끝나도 이어지는 네트워크." data-en="A network that outlasts the event.">해카톤이 끝나도 이어지는 네트워크.</div>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <svg class="pillar-icon" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" stroke="rgba(212,148,58,0.3)" stroke-width="0.8"/>
+          <!-- Star / joy icon -->
+          <path d="M22 12 L24.2 18.5 L31 18.5 L25.5 22.5 L27.7 29 L22 25 L16.3 29 L18.5 22.5 L13 18.5 L19.8 18.5 Z" stroke="rgba(212,148,58,0.7)" stroke-width="0.9" fill="none" stroke-linejoin="round"/>
+        </svg>
+        <div class="pillar-text-group">
+          <div class="pillar-label" data-ko="즐거움" data-en="Joy">즐거움</div>
+          <div class="pillar-title" data-ko="일이 놀이가 될 때" data-en="When work becomes play">일이 놀이가 될 때</div>
+          <div class="pillar-desc" data-ko="최고의 아이디어는 즐기는 자리에서 나옵니다." data-en="The best ideas come when you're genuinely having fun.">최고의 아이디어는 즐기는 자리에서 나옵니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THEMES ══ -->
+<section class="themes-section">
+  <span class="section-label" data-ko="해카톤의 구조" data-en="How the hackathon works">해카톤의 구조</span>
+  <h2 class="section-title" id="themes-title">두 가지 도구로<br><em>다섯 가지를 탐구합니다.</em></h2>
+
+  <!-- Tools eyebrow -->
+  <div class="tools-header">
+    <span class="tools-eyebrow" data-ko="핵심 도구 — 이 두 가지로 하루를 이끌어갑니다" data-en="Core tools — these two drive the entire day">핵심 도구 — 이 두 가지로 하루를 이끌어갑니다</span>
+  </div>
+
+  <div class="tools-grid">
+    <!-- AI Tool Card -->
+    <div class="tool-card">
+      <div class="tool-card-label" data-ko="도구 01" data-en="Tool 01">도구 01</div>
+      <div class="tool-card-title" data-ko="인공지능 (AI)" data-en="Artificial Intelligence (AI)">인공지능 (AI)</div>
+      <div class="tool-card-desc" data-ko="아이디어를 빠르게 현실로. AI는 하루 동안 여러분의 생각을 증폭시키는 도구입니다. 어렵지 않습니다 — 함께 배웁니다." data-en="Turning ideas into reality, fast. AI amplifies your thinking throughout the day. No experience needed — we learn together.">아이디어를 빠르게 현실로. AI는 하루 동안 여러분의 생각을 증폭시키는 도구입니다. 어렵지 않습니다 — 함께 배웁니다.</div>
+      <!-- AI visual: neural net -->
+      <svg class="tool-visual" viewBox="0 0 280 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Input layer -->
+        <circle cx="30" cy="30" r="7" stroke="rgba(196,98,45,0.5)" stroke-width="0.8" fill="rgba(196,98,45,0.07)"/>
+        <circle cx="30" cy="55" r="7" stroke="rgba(196,98,45,0.5)" stroke-width="0.8" fill="rgba(196,98,45,0.07)"/>
+        <circle cx="30" cy="80" r="7" stroke="rgba(196,98,45,0.5)" stroke-width="0.8" fill="rgba(196,98,45,0.07)"/>
+        <!-- Hidden layer 1 -->
+        <circle cx="100" cy="20" r="7" stroke="rgba(196,98,45,0.4)" stroke-width="0.8" fill="rgba(196,98,45,0.05)"/>
+        <circle cx="100" cy="45" r="7" stroke="rgba(196,98,45,0.4)" stroke-width="0.8" fill="rgba(196,98,45,0.05)"/>
+        <circle cx="100" cy="70" r="7" stroke="rgba(196,98,45,0.4)" stroke-width="0.8" fill="rgba(196,98,45,0.05)"/>
+        <circle cx="100" cy="92" r="7" stroke="rgba(196,98,45,0.4)" stroke-width="0.8" fill="rgba(196,98,45,0.05)"/>
+        <!-- Hidden layer 2 -->
+        <circle cx="180" cy="30" r="7" stroke="rgba(196,98,45,0.4)" stroke-width="0.8" fill="rgba(196,98,45,0.05)"/>
+        <circle cx="180" cy="55" r="7" stroke="rgba(196,98,45,0.4)" stroke-width="0.8" fill="rgba(196,98,45,0.05)"/>
+        <circle cx="180" cy="80" r="7" stroke="rgba(196,98,45,0.4)" stroke-width="0.8" fill="rgba(196,98,45,0.05)"/>
+        <!-- Output -->
+        <circle cx="250" cy="55" r="9" stroke="rgba(196,98,45,0.8)" stroke-width="1" fill="rgba(196,98,45,0.15)"/>
+        <!-- Connections input→h1 -->
+        <line x1="37" y1="30" x2="93" y2="20" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <line x1="37" y1="30" x2="93" y2="45" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <line x1="37" y1="30" x2="93" y2="70" stroke="rgba(196,98,45,0.12)" stroke-width="0.6"/>
+        <line x1="37" y1="55" x2="93" y2="20" stroke="rgba(196,98,45,0.12)" stroke-width="0.6"/>
+        <line x1="37" y1="55" x2="93" y2="45" stroke="rgba(196,98,45,0.18)" stroke-width="0.6"/>
+        <line x1="37" y1="55" x2="93" y2="70" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <line x1="37" y1="55" x2="93" y2="92" stroke="rgba(196,98,45,0.1)" stroke-width="0.6"/>
+        <line x1="37" y1="80" x2="93" y2="45" stroke="rgba(196,98,45,0.1)" stroke-width="0.6"/>
+        <line x1="37" y1="80" x2="93" y2="70" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <line x1="37" y1="80" x2="93" y2="92" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <!-- h1→h2 -->
+        <line x1="107" y1="20" x2="173" y2="30" stroke="rgba(196,98,45,0.12)" stroke-width="0.6"/>
+        <line x1="107" y1="20" x2="173" y2="55" stroke="rgba(196,98,45,0.1)" stroke-width="0.6"/>
+        <line x1="107" y1="45" x2="173" y2="30" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <line x1="107" y1="45" x2="173" y2="55" stroke="rgba(196,98,45,0.18)" stroke-width="0.6"/>
+        <line x1="107" y1="45" x2="173" y2="80" stroke="rgba(196,98,45,0.12)" stroke-width="0.6"/>
+        <line x1="107" y1="70" x2="173" y2="55" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <line x1="107" y1="70" x2="173" y2="80" stroke="rgba(196,98,45,0.15)" stroke-width="0.6"/>
+        <line x1="107" y1="92" x2="173" y2="55" stroke="rgba(196,98,45,0.1)" stroke-width="0.6"/>
+        <line x1="107" y1="92" x2="173" y2="80" stroke="rgba(196,98,45,0.12)" stroke-width="0.6"/>
+        <!-- h2→output -->
+        <line x1="187" y1="30" x2="241" y2="55" stroke="rgba(196,98,45,0.3)" stroke-width="0.8"/>
+        <line x1="187" y1="55" x2="241" y2="55" stroke="rgba(196,98,45,0.35)" stroke-width="0.9"/>
+        <line x1="187" y1="80" x2="241" y2="55" stroke="rgba(196,98,45,0.3)" stroke-width="0.8"/>
+        <!-- Labels -->
+        <text x="30" y="105" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="rgba(196,98,45,0.5)">Input</text>
+        <text x="250" y="74" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7.5" fill="rgba(196,98,45,0.7)">Output</text>
+      </svg>
+    </div>
+
+    <!-- Double Diamond Tool Card -->
+    <div class="tool-card">
+      <div class="tool-card-label" data-ko="도구 02" data-en="Tool 02">도구 02</div>
+      <div class="tool-card-title" data-ko="더블 다이아몬드 (디자인씽킹)" data-en="Double Diamond (Design Thinking)">더블 다이아몬드 (디자인씽킹)</div>
+      <div class="tool-card-desc" data-ko="문제를 제대로 이해하고, 최선의 해결책을 만드는 과정. 발산과 수렴을 반복하며 아이디어를 현실로 가져옵니다." data-en="A structured process to understand problems deeply and build the right solutions — expanding, converging, and repeating.">문제를 제대로 이해하고, 최선의 해결책을 만드는 과정. 발산과 수렴을 반복하며 아이디어를 현실로 가져옵니다.</div>
+      <!-- Double Diamond SVG -->
+      <svg class="tool-visual" viewBox="0 0 280 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Diamond 1: Discover → Define -->
+        <path d="M20 55 L80 18 L140 55 L80 92 Z" stroke="rgba(122,140,114,0.5)" stroke-width="0.9" fill="rgba(122,140,114,0.05)"/>
+        <!-- Diamond 2: Develop → Deliver -->
+        <path d="M140 55 L200 18 L260 55 L200 92 Z" stroke="rgba(196,98,45,0.5)" stroke-width="0.9" fill="rgba(196,98,45,0.05)"/>
+        <!-- Center point -->
+        <circle cx="140" cy="55" r="3.5" fill="rgba(245,240,232,0.4)"/>
+        <!-- Phase labels -->
+        <text x="80" y="50" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(122,140,114,0.75)" font-weight="500">Discover</text>
+        <text x="80" y="62" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(122,140,114,0.75)">→ Define</text>
+        <text x="200" y="50" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(196,98,45,0.75)" font-weight="500">Develop</text>
+        <text x="200" y="62" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(196,98,45,0.75)">→ Deliver</text>
+        <!-- Diverge/Converge arrows -->
+        <text x="50" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(122,140,114,0.4)">발산</text>
+        <text x="110" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(122,140,114,0.4)">수렴</text>
+        <text x="170" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(196,98,45,0.4)">발산</text>
+        <text x="230" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="rgba(196,98,45,0.4)">수렴</text>
+        <!-- Bracket indicators -->
+        <line x1="20" y1="98" x2="140" y2="98" stroke="rgba(122,140,114,0.2)" stroke-width="0.6"/>
+        <line x1="140" y1="98" x2="260" y2="98" stroke="rgba(196,98,45,0.2)" stroke-width="0.6"/>
+        <line x1="20" y1="95" x2="20" y2="101" stroke="rgba(122,140,114,0.2)" stroke-width="0.6"/>
+        <line x1="140" y1="95" x2="140" y2="101" stroke="rgba(245,240,232,0.2)" stroke-width="0.6"/>
+        <line x1="260" y1="95" x2="260" y2="101" stroke="rgba(196,98,45,0.2)" stroke-width="0.6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Thread connector -->
+  <div class="thread-connector">
+    <div class="thread-line"></div>
+    <span class="thread-label" data-ko="이 도구들을 통해 세 가지 주제가 자연스럽게 흐릅니다" data-en="through these tools, three themes weave naturally">이 도구들을 통해 세 가지 주제가 자연스럽게 흐릅니다</span>
+    <div class="thread-line"></div>
+  </div>
+
+  <!-- Transversal themes -->
+  <div class="transversal-grid">
+    <div class="trans-card">
+      <span class="trans-num">01</span>
+      <span class="trans-icon">🌱</span>
+      <h3 class="trans-title" data-ko="한국에서의 성공,<br>다시 정의하기" data-en="Redefining success<br>in Korea">한국에서의 성공,<br>다시 정의하기</h3>
+      <p class="trans-desc" data-ko="더 빠르게, 더 많이가 아닌 — 나답게 잘 사는 것의 의미를 탐구합니다." data-en="Not faster, not more — exploring what thriving on your own terms actually means.">더 빠르게, 더 많이가 아닌 — 나답게 잘 사는 것의 의미를 탐구합니다.</p>
+    </div>
+    <div class="trans-card">
+      <span class="trans-num">02</span>
+      <span class="trans-icon">✨</span>
+      <h3 class="trans-title" data-ko="일도 잘, 삶도 잘" data-en="Work well, live well">일도 잘, 삶도 잘</h3>
+      <p class="trans-desc" data-ko="성과와 즐거움은 반대말이 아닙니다. 이 둘이 공존하는 방식을 직접 경험합니다." data-en="Performance and joy are not opposites. We experience first-hand how both can coexist.">성과와 즐거움은 반대말이 아닙니다. 이 둘이 공존하는 방식을 직접 경험합니다.</p>
+    </div>
+    <div class="trans-card">
+      <span class="trans-num">03</span>
+      <span class="trans-icon">🤝</span>
+      <h3 class="trans-title" data-ko="커뮤니티의 힘" data-en="The power of community">커뮤니티의 힘</h3>
+      <p class="trans-desc" data-ko="혼자 가면 빠르고, 함께 가면 멀리 갑니다. 진짜 연결이 만들어지는 공간." data-en="Alone you go faster, together you go further. A space where real connections are built.">혼자 가면 빠르고, 함께 가면 멀리 갑니다. 진짜 연결이 만들어지는 공간.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROGRAM ══ -->
+<section>
+  <span class="section-label" data-ko="프로그램" data-en="Program">프로그램</span>
+  <h2 class="section-title" id="program-title">하루의 <em>여정</em></h2>
+  <div class="program-layout">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div>
+          <div class="tl-title" data-ko="오프닝 & 아이스브레이킹" data-en="Opening & Icebreaking">오프닝 & 아이스브레이킹</div>
+          <div class="tl-desc" data-ko="서로를 알아가고 팀을 구성합니다." data-en="Getting to know each other and forming teams.">서로를 알아가고 팀을 구성합니다.</div>
+          <div class="tl-tags"><span class="tl-tag social" data-ko="커뮤니티" data-en="Community">커뮤니티</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:30</div>
+        <div>
+          <div class="tl-title" data-ko="AI × 디자인씽킹 도구 소개" data-en="AI × Design Thinking toolkit">AI × 디자인씽킹 도구 소개</div>
+          <div class="tl-desc" data-ko="핵심 도구를 손에 익힙니다. 초보자도 괜찮습니다." data-en="Getting hands-on with the core tools. All levels welcome.">핵심 도구를 손에 익힙니다. 초보자도 괜찮습니다.</div>
+          <div class="tl-tags"><span class="tl-tag ai">AI</span><span class="tl-tag dt" data-ko="디자인씽킹" data-en="Design Thinking">디자인씽킹</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11:30</div>
+        <div>
+          <div class="tl-title" data-ko="Discover → Define: 문제 정의" data-en="Discover → Define: Problem framing">Discover → Define: 문제 정의</div>
+          <div class="tl-desc" data-ko="각 팀이 주제를 깊이 탐색하고 핵심 문제를 정의합니다." data-en="Each team explores their theme deeply and defines the core challenge.">각 팀이 주제를 깊이 탐색하고 핵심 문제를 정의합니다.</div>
+          <div class="tl-tags"><span class="tl-tag dt" data-ko="디자인씽킹" data-en="Design Thinking">디자인씽킹</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div>
+          <div class="tl-title" data-ko="점심 & 네트워킹" data-en="Lunch & Networking">점심 & 네트워킹</div>
+          <div class="tl-desc" data-ko="청도 미나리 삼겹살 🐷🔥 — 가장 중요한 시간 중 하나." data-en="Cheongdo minari samgyeopsal 🐷🔥 — one of the most important moments of the day.">청도 미나리 삼겹살 🐷🔥 — 가장 중요한 시간 중 하나.</div>
+          <div class="tl-tags"><span class="tl-tag social" data-ko="커뮤니티" data-en="Community">커뮤니티</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div>
+          <div class="tl-title" data-ko="Develop → Deliver: AI로 프로토타입" data-en="Develop → Deliver: AI prototype">Develop → Deliver: AI로 프로토타입</div>
+          <div class="tl-desc" data-ko="AI 도구로 아이디어를 구체화하고 작동하는 무언가를 만듭니다." data-en="Using AI tools to prototype ideas and build something that actually works.">AI 도구로 아이디어를 구체화하고 작동하는 무언가를 만듭니다.</div>
+          <div class="tl-tags"><span class="tl-tag ai">AI</span><span class="tl-tag dt" data-ko="디자인씽킹" data-en="Design Thinking">디자인씽킹</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">16:00</div>
+        <div>
+          <div class="tl-title" data-ko="팀 발표 & 피드백" data-en="Team presentations & Feedback">팀 발표 & 피드백</div>
+          <div class="tl-desc" data-ko="각 팀이 결과물을 공유하고 진심 어린 피드백을 나눕니다." data-en="Each team shares their output and receives honest, constructive feedback.">각 팀이 결과물을 공유하고 진심 어린 피드백을 나눕니다.</div>
+          <div class="tl-tags"><span class="tl-tag social" data-ko="커뮤니티" data-en="Community">커뮤니티</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">17:00</div>
+        <div>
+          <div class="tl-title" data-ko="클로징 & 다음 스텝" data-en="Closing & Next steps">클로징 & 다음 스텝</div>
+          <div class="tl-desc" data-ko="오늘 만든 연결을 계속 이어갈 방법을 함께 이야기합니다." data-en="Finding ways to keep today's connections and ideas alive.">오늘 만든 연결을 계속 이어갈 방법을 함께 이야기합니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aside: full-day flow visual -->
+    <div class="program-aside">
+      <div class="aside-title" data-ko="하루의 흐름" data-en="The day at a glance">하루의 흐름</div>
+      <svg width="100%" viewBox="0 0 280 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Vertical spine -->
+        <line x1="30" y1="20" x2="30" y2="400" stroke="rgba(245,240,232,0.08)" stroke-width="1"/>
+        <!-- Segments -->
+        <!-- Morning: community -->
+        <rect x="42" y="20" width="220" height="52" rx="3" fill="rgba(212,148,58,0.07)" stroke="rgba(212,148,58,0.2)" stroke-width="0.7"/>
+        <text x="54" y="42" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(212,148,58,0.7)" font-weight="500">10:00</text>
+        <text x="54" y="56" font-family="'Noto Sans KR',sans-serif" font-size="8" fill="rgba(245,240,232,0.5)">오프닝 & 팀 빌딩</text>
+        <circle cx="30" cy="46" r="4" fill="rgba(212,148,58,0.4)" stroke="rgba(212,148,58,0.6)" stroke-width="0.7"/>
+        <!-- Tools intro -->
+        <rect x="42" y="82" width="220" height="52" rx="3" fill="rgba(196,98,45,0.06)" stroke="rgba(196,98,45,0.2)" stroke-width="0.7"/>
+        <text x="54" y="104" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(196,98,45,0.7)" font-weight="500">10:30</text>
+        <text x="54" y="118" font-family="'Noto Sans KR',sans-serif" font-size="8" fill="rgba(245,240,232,0.5)">AI × 디자인씽킹 도구</text>
+        <circle cx="30" cy="108" r="4" fill="rgba(196,98,45,0.4)" stroke="rgba(196,98,45,0.6)" stroke-width="0.7"/>
+        <!-- Diamond 1 -->
+        <rect x="42" y="144" width="220" height="52" rx="3" fill="rgba(122,140,114,0.06)" stroke="rgba(122,140,114,0.2)" stroke-width="0.7"/>
+        <text x="54" y="166" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(122,140,114,0.7)" font-weight="500">11:30</text>
+        <text x="54" y="180" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(245,240,232,0.5)">Discover → Define</text>
+        <circle cx="30" cy="170" r="4" fill="rgba(122,140,114,0.4)" stroke="rgba(122,140,114,0.6)" stroke-width="0.7"/>
+        <!-- Lunch -->
+        <rect x="42" y="206" width="220" height="42" rx="3" fill="rgba(245,240,232,0.03)" stroke="rgba(245,240,232,0.08)" stroke-width="0.7"/>
+        <text x="54" y="224" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(245,240,232,0.35)" font-weight="500">13:00</text>
+        <text x="54" y="238" font-family="'Noto Sans KR',sans-serif" font-size="8" fill="rgba(245,240,232,0.3)">점심 🐷🔥</text>
+        <circle cx="30" cy="227" r="3" fill="rgba(245,240,232,0.15)" stroke="rgba(245,240,232,0.2)" stroke-width="0.7"/>
+        <!-- Diamond 2 -->
+        <rect x="42" y="258" width="220" height="62" rx="3" fill="rgba(196,98,45,0.07)" stroke="rgba(196,98,45,0.25)" stroke-width="0.7"/>
+        <text x="54" y="278" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(196,98,45,0.7)" font-weight="500">14:00</text>
+        <text x="54" y="293" font-family="'DM Sans',sans-serif" font-size="8" fill="rgba(245,240,232,0.5)">Develop → Deliver</text>
+        <text x="54" y="308" font-family="'Noto Sans KR',sans-serif" font-size="7.5" fill="rgba(196,98,45,0.5)">AI 프로토타입</text>
+        <circle cx="30" cy="289" r="4" fill="rgba(196,98,45,0.4)" stroke="rgba(196,98,45,0.6)" stroke-width="0.7"/>
+        <!-- Closing -->
+        <rect x="42" y="330" width="220" height="62" rx="3" fill="rgba(212,148,58,0.06)" stroke="rgba(212,148,58,0.15)" stroke-width="0.7"/>
+        <text x="54" y="350" font-family="'DM Sans',sans-serif" font-size="8.5" fill="rgba(212,148,58,0.6)" font-weight="500">16:00 → 17:00</text>
+        <text x="54" y="366" font-family="'Noto Sans KR',sans-serif" font-size="8" fill="rgba(245,240,232,0.5)">발표 & 클로징</text>
+        <circle cx="30" cy="361" r="4" fill="rgba(212,148,58,0.35)" stroke="rgba(212,148,58,0.5)" stroke-width="0.7"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COLLABS ══ -->
+<section style="background:#0b0a08;">
+  <span class="section-label" data-ko="함께하는 팀들" data-en="The teams behind this">함께하는 팀들</span>
+  <h2 class="section-title" id="collab-title">이 해카톤을<br><em>만드는 사람들</em></h2>
+  <div class="collab-grid">
+    <div class="collab-card">
+      <div class="collab-role" data-ko="주최" data-en="Host">주최</div>
+      <div class="collab-name" data-ko="청도혁신센터" data-en="Cheongdo Innovation Center">청도혁신센터</div>
+      <div class="collab-desc" data-ko="지역 혁신과 커뮤니티 성장을 위한 공간. 이 해카톤의 터전." data-en="A space for regional innovation and community growth. The home of this hackathon.">지역 혁신과 커뮤니티 성장을 위한 공간. 이 해카톤의 터전.</div>
+    </div>
+    <div class="collab-card">
+      <div class="collab-role" data-ko="주관" data-en="Organiser">주관</div>
+      <div class="collab-name">Aurora Planet</div>
+      <div class="collab-desc" data-ko="진정성 있게 살고 함께 성장하는 사람들의 커뮤니티. 이 이벤트의 기획자." data-en="A guild of people who want to live more authentically and grow together. The creative force behind this event.">진정성 있게 살고 함께 성장하는 사람들의 커뮤니티. 이 이벤트의 기획자.</div>
+    </div>
+    <div class="collab-card">
+      <div class="collab-role" data-ko="협력" data-en="Collaborator">협력</div>
+      <div class="collab-name">IApyme Consultores</div>
+      <div class="collab-desc" data-ko="스페인 빌바오 기반 AI 응용 컨설팅. 50개 이상의 기업에 AI를 실제 비즈니스 도구로 만들어온 팀." data-en="AI applied consulting from Bilbao, Spain. Making AI a real business tool for 50+ companies.">스페인 빌바오 기반 AI 응용 컨설팅. 50개 이상의 기업에 AI를 실제 비즈니스 도구로 만들어온 팀.</div>
+    </div>
+    <div class="collab-card">
+      <div class="collab-role" data-ko="협력" data-en="Collaborator">협력</div>
+      <div class="collab-name">MakeYourWay</div>
+      <div class="collab-desc" data-ko="애자일 & 디자인씽킹 전문가 그룹. 복잡한 문제를 사람 중심의 방법론으로 풀어온 팀." data-en="Agile & Design Thinking specialists. Turning complex challenges into human-centred solutions.">애자일 & 디자인씽킹 전문가 그룹. 복잡한 문제를 사람 중심의 방법론으로 풀어온 팀.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REGISTER ══ -->
+<section class="register-section" id="register">
+  <svg class="register-deco" width="480" height="480" viewBox="0 0 480 480" fill="none">
+    <circle cx="240" cy="240" r="230" stroke="#0e0c0a" stroke-width="1"/>
+    <circle cx="240" cy="240" r="170" stroke="#0e0c0a" stroke-width="1"/>
+    <circle cx="240" cy="240" r="110" stroke="#0e0c0a" stroke-width="1"/>
+    <circle cx="240" cy="240" r="50" fill="#0e0c0a" opacity="0.25"/>
+  </svg>
+  <div class="register-inner">
+    <span class="section-label" data-ko="참가 신청" data-en="Register">참가 신청</span>
+    <h2 class="section-title" id="register-title">함께할<br><em>준비 되셨나요?</em></h2>
+    <p class="register-note" data-ko="무료로 참가 가능합니다. 선착순으로 마감되며, 신청 후 확인 연락을 드립니다." data-en="Entry is free. Spots are limited and filled on a first-come basis. We'll confirm your registration shortly.">무료로 참가 가능합니다. 선착순으로 마감되며, 신청 후 확인 연락을 드립니다.</p>
+    <div class="register-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" data-ko="이름 *" data-en="Name *">이름 *</label>
+          <input class="form-input" id="ph-name" type="text" placeholder="홍길동">
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-ko="연락처 *" data-en="Phone *">연락처 *</label>
+          <input class="form-input" id="ph-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-ko="이메일 *" data-en="Email *">이메일 *</label>
+        <input class="form-input" id="ph-email" type="email" placeholder="hello@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-ko="해당되는 분야" data-en="Background">해당되는 분야</label>
+        <select class="form-select" id="select-bg">
+          <option data-ko="선택해주세요" data-en="Select one">선택해주세요</option>
+          <option data-ko="대학생" data-en="University student">대학생</option>
+          <option data-ko="창업자 / 스타트업" data-en="Entrepreneur / Startup">창업자 / 스타트업</option>
+          <option data-ko="소상공인 / 자영업" data-en="Small business owner">소상공인 / 자영업</option>
+          <option data-ko="직장인" data-en="Employed professional">직장인</option>
+          <option data-ko="기타" data-en="Other">기타</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-ko="참여 동기 (선택)" data-en="Why you're joining (optional)">참여 동기 (선택)</label>
+        <input class="form-input" id="ph-motivation" type="text" data-ko="오늘 이 자리에 오게 된 이유를 짧게 적어주세요" data-en="What brings you here today?" placeholder="오늘 이 자리에 오게 된 이유를 짧게 적어주세요">
+      </div>
+      <button class="form-submit" data-ko="신청 완료하기 →" data-en="Submit application →">신청 완료하기 →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-credit" data-ko="© 2026 잘 살기 해카톤 · Aurora Planet" data-en="© 2026 The Thriving Hackathon · Aurora Planet">© 2026 잘 살기 해카톤 · Aurora Planet</div>
+  <div class="footer-orgs">
+    <span class="footer-org">청도혁신센터</span>
+    <span class="footer-org">Aurora Planet</span>
+    <span class="footer-org">IApyme Consultores</span>
+    <span class="footer-org">MakeYourWay</span>
+  </div>
+</footer>
+
+<script>
+const rich = {
+  ko:{
+    'hero-title':'<em>잘 살기</em><span class="accent">해카톤</span>',
+    'about-title':'일하는 것과 잘 사는 것,<br><em>함께라면 가능합니다.</em>',
+    'about-body':'<p>한국에서 성공이란 무엇일까요? 더 많이 버는 것? 더 빠르게 성장하는 것? 이 해카톤은 그 질문에서 시작합니다.</p><p>AI와 디자인씽킹이라는 두 가지 도구를 손에 쥐고, 나 자신의 성공을 직접 설계해봅니다. 혼자가 아닌 커뮤니티와 함께.</p><p>학생이든, 창업자든, 소상공인이든 — 잘 살고 싶다는 마음 하나면 충분합니다.</p>',
+    'themes-title':'두 가지 도구로<br><em>다섯 가지를 탐구합니다.</em>',
+    'program-title':'하루의 <em>여정</em>',
+    'collab-title':'이 해카톤을<br><em>만드는 사람들</em>',
+    'register-title':'함께할<br><em>준비 되셨나요?</em>'
+  },
+  en:{
+    'hero-title':'<em>The Thriving</em><span class="accent">Hackathon</span>',
+    'about-title':'Working well and living well —<br><em>possible together.</em>',
+    'about-body':'<p>What does success look like in Korea? Earning more? Growing faster? This hackathon starts with that question.</p><p>Armed with two tools — AI and Design Thinking — you design your own version of thriving. Not alone, but with a community around you.</p><p>Whether you\'re a student, an entrepreneur or a small business owner — wanting to thrive is enough.</p>',
+    'themes-title':'Two tools.<br><em>Five things to explore.</em>',
+    'program-title':'The day\'s <em>journey</em>',
+    'collab-title':'The people<br><em>making this happen</em>',
+    'register-title':'Ready to<br><em>join us?</em>'
+  }
+};
+const ph = {
+  ko:{'ph-name':'홍길동','ph-phone':'010-0000-0000','ph-email':'hello@example.com','ph-motivation':'오늘 이 자리에 오게 된 이유를 짧게 적어주세요'},
+  en:{'ph-name':'Your name','ph-phone':'+82 10-0000-0000','ph-email':'hello@example.com','ph-motivation':'What brings you here today?'}
+};
+function setLang(lang){
+  document.getElementById('btn-ko').classList.toggle('active',lang==='ko');
+  document.getElementById('btn-en').classList.toggle('active',lang==='en');
+  document.body.classList.toggle('en',lang==='en');
+  Object.keys(rich[lang]).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.innerHTML=rich[lang][id];
+  });
+  document.querySelectorAll('[data-ko][data-en]').forEach(el=>{
+    if(el.id&&rich[lang][el.id]) return;
+    el.innerHTML=el.getAttribute('data-'+lang);
+  });
+  document.querySelectorAll('select option[data-ko][data-en]').forEach(opt=>{
+    opt.textContent=opt.getAttribute('data-'+lang);
+  });
+  Object.keys(ph[lang]).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.placeholder=ph[lang][id];
+  });
+}
+setLang('ko');
+</script>
+</body>
+</html>
